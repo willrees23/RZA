@@ -37,3 +37,28 @@ CREATE TABLE IF NOT EXISTS "hotel_reservations" (
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 """
+
+
+def INSERT(table: str, *args: str):
+    # check if amount of arguments are even
+    # if not, this function won't work, so error
+    if len(args) % 2 != 0:
+        print("Args not even")
+        return
+    # split the args into two halves
+    length = len(args)
+    firstH = args[0 : length // 2]
+    secondH = args[length // 2 :]
+    query = "INSERT INTO {} {} VALUES {}".format(table, firstH, secondH)
+    print(query)
+    return query
+
+
+def INSERT_USER(email: str, username: str, password: str):
+    return INSERT("users", "email", "username", "password", email, username, password)
+
+
+def SELECT_USER_BY(by: str, s: str):
+    query = "SELECT * FROM users WHERE {}='{}';".format(by, s)
+    print(query)
+    pass
