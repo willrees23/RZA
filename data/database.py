@@ -26,3 +26,13 @@ def create_user(email: str, username: str, password: str):
     id = cursor.lastrowid
     cursor.close()
     return User(id, email, username, hash)
+
+
+def get_user(email: str):
+    cursor = database.cursor()
+    cursor.execute(queries.SELECT_USER_BY("email", email))
+    user = cursor.fetchone()
+    cursor.close()
+    if user is None:
+        return None
+    return User(*user)
