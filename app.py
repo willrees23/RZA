@@ -13,6 +13,7 @@ def index():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    page = "account/signup.html"
     # signup functionality
     # if the method is post, they've used the form, if the method is get, they're viewing the page
     if request.method == "POST":
@@ -25,33 +26,37 @@ def signup():
         # check if email is taken
         user = database.get_user_by_email(email)
         if user:
-            return "Email is already taken"
+            return render_template(page, error="Email is already registered.")
         # check if username is taken
         user = database.get_user_by_username(username)
         if user:
-            return "Username is already taken"
+            return render_template(page, error="Username is unavailable.")
         
         # check if password and conf_password match
         if password != conf_password:
-            return "Passwords do not match"
+            return render_template(page, error="Passwords do not match.")
         
         user = database.create_user(email, username, password)
 
-        return user.username + ", you have successfully signed up!"
-    return render_template("account/signup.html")
+        return render_template(page, info="Account created successfully.")
+    return render_template(page)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    page = "account/login.html"
     # login functionality
     # if the method is post, they've used the form, if the method is get, they're viewing the page
     if request.method == "POST":
         # get the username and password from the form
         email = request.form["email"]
+        password = request.form["password"]
         # check if the user exists in the database
         user = database.get_user_by_email(email)
         # for now, just print the user
-        print(user)
-    else: return render_template("account/login.html")
+        if not user:
+            return render_template(page, error="Incorrect email or password.")
+        
+    else: return render_template(page)
 
 
 if __name__ == "__main__":

@@ -6,6 +6,16 @@
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
+    {% if error %}
+    <div class="error">
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+    {% if info %}
+    <div class="info">
+      <p>{{ info }}</p>
+    </div>
+    {% endif %}
     {% block content %} {% endblock %}
   </body>
 </html>
