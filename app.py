@@ -1,7 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect
+from flask_session import Session
 from data import database
+from bcrypt import checkpw
 
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 # setup the database
 database.setup() 
@@ -9,6 +14,8 @@ database.setup()
 @app.route("/")
 def index():
     # landing page
+    if user := session.get("user"):
+        return "Hello, " + user.username
     return "Hello, World!"
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -55,7 +62,11 @@ def login():
         # for now, just print the user
         if not user:
             return render_template(page, error="Incorrect email or password.")
+        if not checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            return render_template(page, error="Incorrect email or password.")
         
+        session["user"] = user
+        return redirect("/")
     else: return render_template(page)
 
 
