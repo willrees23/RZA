@@ -1,12 +1,15 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, url_for
 from flask_session import Session
 from data import database
 from bcrypt import checkpw
+import re
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+ALREADY_LOGGED_IN = "Note: you are already logged in."
 
 # setup the database
 database.setup()
@@ -14,10 +17,8 @@ database.setup()
 
 @app.route("/")
 def index():
-    # landing page
-    if user := session.get("user"):
-        return "Hello, " + user.username
-    return "Hello, World!"
+    user = session.get("user")
+    return render_template("index.html", user=user)
 
 
 @app.route("/logout")
@@ -43,6 +44,14 @@ def signup():
         user = database.get_user_by_email(email)
         if user:
             return render_template(page, error="Email is already registered.")
+
+        # using regex, validate username
+        if not re.match("^[A-Za-z][A-Za-z0-9_]{3,29}$", username):
+            return render_template(
+                page,
+                error="Username must be 4-30 characters, a-Z, 0-9, only permitted symbol is underscore.",
+            )
+
         # check if username is taken
         user = database.get_user_by_username(username)
         if user:
@@ -55,7 +64,10 @@ def signup():
         user = database.create_user(email, username, password)
 
         return render_template(page, info="Account created successfully.")
-    return render_template(page)
+    else:
+        if user := session.get("user"):
+            return render_template(page, info=ALREADY_LOGGED_IN)
+        return render_template(page)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -78,6 +90,8 @@ def login():
         session["user"] = user
         return redirect("/")
     else:
+        if user := session.get("user"):
+            return render_template(page, info=ALREADY_LOGGED_IN)
         return render_template(page)
 
 
