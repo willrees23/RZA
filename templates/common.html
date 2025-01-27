@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} {% endblock %}</title>
-  </head>
-  <body>
-    {% if error %}
-    <div class="error">
-      <p>{{ error }}</p>
-    </div>
-    {% endif %}
-    {% if info %}
-    <div class="info">
-      <p>{{ info }}</p>
-    </div>
-    {% endif %}
-    {% block content %} {% endblock %}
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/styles.css">
+  <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+  {% if error %}
+  <div class="error">
+    <p>{{ error }}</p>
+  </div>
+  {% endif %}
+  {% if info %}
+  <div class="info">
+    <p>{{ info }}</p>
+  </div>
+  {% endif %}
+  {% block content %} {% endblock %}
+</body>
+
 </html>
