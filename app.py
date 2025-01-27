@@ -77,13 +77,15 @@ def login():
     # if the method is post, they've used the form, if the method is get, they're viewing the page
     if request.method == "POST":
         # get the username and password from the form
-        email = request.form["email"]
+        emailusername = request.form["emailusername"]
         password = request.form["password"]
         # check if the user exists in the database
-        user = database.get_user_by_email(email)
+        user = database.get_user_by_email(emailusername)
         # for now, just print the user
         if not user:
-            return render_template(page, error="Incorrect email or password.")
+            user = database.get_user_by_username(emailusername)
+            if not user:
+                return render_template(page, error="Incorrect email or password.")
         if not checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
             return render_template(page, error="Incorrect email or password.")
 
