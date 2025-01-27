@@ -28,9 +28,18 @@ def create_user(email: str, username: str, password: str):
     return User(id, email, username, hash)
 
 
-def get_user(email: str):
+def get_user_by_email(email: str):
     cursor = database.cursor()
     cursor.execute(queries.SELECT_USER_BY("email"), [email])
+    user = cursor.fetchone()
+    cursor.close()
+    if user is None:
+        return None
+    return User(*user)
+
+def get_user_by_username(username: str):
+    cursor = database.cursor()
+    cursor.execute(queries.SELECT_USER_BY("username"), [username])
     user = cursor.fetchone()
     cursor.close()
     if user is None:

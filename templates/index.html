@@ -1,0 +1,11 @@
+{% extends 'common.html' %}
+{% block title %}
+Riget Zoo Adventures | Home
+{% endblock %}
+{% block content %}
+{% if user %}
+Hello, {{ user.username }}!
+{% else %}
+Hello, login.
+{% endif %}
+{% endblock %}
