@@ -9,6 +9,37 @@
 </head>
 
 <body>
+  <div class="hero" style="background-image: url('/static/images/{% block bg_img %}{%endblock%}');">
+  </div>
+  <nav class="navbar">
+    <div class="navbar-title"><a href="/">RZA</a></div>
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="/visit-us">
+          Visit Us
+        </a>
+        <a href="/education">
+          Education
+        </a>
+        <a href="/about-us">
+          About Us
+        </a>
+        <a href="/support">
+          Support
+        </a>
+      </div>
+      <div class="navbar-right">
+        <button>
+          <span>Search</span>
+        </button>
+        <a href="/login">
+          <button>
+            Get Started
+          </button>
+        </a>
+      </div>
+    </div>
+  </nav>
   {% if error %}
   <div class="error">
     <p>{{ error }}</p>
@@ -19,6 +50,9 @@
     <p>{{ info }}</p>
   </div>
   {% endif %}
+  <div class="hero_title">
+    {% block hero_title %} {% endblock %}
+  </div>
   {% block content %} {% endblock %}
 </body>
 
