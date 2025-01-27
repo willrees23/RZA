@@ -9,7 +9,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # setup the database
-database.setup() 
+database.setup()
+
 
 @app.route("/")
 def index():
@@ -17,6 +18,14 @@ def index():
     if user := session.get("user"):
         return "Hello, " + user.username
     return "Hello, World!"
+
+
+@app.route("/logout")
+def logout():
+    if session.get("user"):
+        session.clear()
+    return redirect("/")
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -38,15 +47,16 @@ def signup():
         user = database.get_user_by_username(username)
         if user:
             return render_template(page, error="Username is unavailable.")
-        
+
         # check if password and conf_password match
         if password != conf_password:
             return render_template(page, error="Passwords do not match.")
-        
+
         user = database.create_user(email, username, password)
 
         return render_template(page, info="Account created successfully.")
     return render_template(page)
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -62,12 +72,13 @@ def login():
         # for now, just print the user
         if not user:
             return render_template(page, error="Incorrect email or password.")
-        if not checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        if not checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
             return render_template(page, error="Incorrect email or password.")
-        
+
         session["user"] = user
         return redirect("/")
-    else: return render_template(page)
+    else:
+        return render_template(page)
 
 
 if __name__ == "__main__":
