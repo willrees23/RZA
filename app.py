@@ -88,9 +88,9 @@ def login():
         if not user:
             user = database.get_user_by_username(emailusername)
             if not user:
-                return render_template(page, error="Incorrect email or password.")
+                return render_template(page, error="Incorrect email/username or password.")
         if not checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-            return render_template(page, error="Incorrect email or password.")
+            return render_template(page, error="Incorrect email/username or password.")
 
         session["user"] = user
         return redirect("/")
