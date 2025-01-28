@@ -2,7 +2,7 @@ form {
     width: 50%;
 }
 
-form.login {
+form.account {
     background-color: #f9f0ed7e;
     padding: 20px;
     border-radius: 20px;
@@ -10,6 +10,14 @@ form.login {
 
 .off-text {
     color: #523200;
+}
+
+.hero {
+    background-position: left;
+}
+
+.hero_title {
+    align-items: unset;
 }
 
 .hero_title span.title {

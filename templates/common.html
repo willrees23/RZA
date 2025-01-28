@@ -58,17 +58,17 @@
       </div>
     </div>
   </nav>
-  {% if error %}
+  <div class="hero_title">
+    {% if error %}
   <div class="error">
-    <p>{{ error }}</p>
+    <span>{{ error }}</span>
   </div>
   {% endif %}
   {% if info %}
   <div class="info">
-    <p>{{ info }}</p>
+    <span>{{ info }}</span>
   </div>
   {% endif %}
-  <div class="hero_title">
     {% block hero_title %} {% endblock %}
   </div>
   {% block content %} {% endblock %}
