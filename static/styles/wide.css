@@ -1,0 +1,27 @@
+form {
+    width: 50%;
+}
+
+form.login {
+    background-color: #f9f0ed7e;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.off-text {
+    color: #523200;
+}
+
+.hero_title span.title {
+    text-align: unset;
+}
+
+.mobile-menu {
+    position: absolute;
+    visibility: hidden;
+}
+
+.navbar-left {
+    position: relative;
+    visibility: visible;
+}

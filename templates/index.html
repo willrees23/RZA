@@ -5,15 +5,17 @@ Riget Zoo Adventures | Home
 {% block bg_img %}white_and_brown_lion_on_grass.jpg{%endblock%}
 {% block hero_title %}
 {% if user %}
-<h1>
+<span class="title">
     Welcome to <span style="color: #F29500;  font-size: 54px;">Riget Zoo Adventures</span>, {{user.username}}!
-</h1>
+</span>
 {% else %}
-<h1>
+<span class="title">
     Welcome to <span style="color: #F29500; font-size: 54px;">Riget Zoo Adventures</span>!
-</h1>
-<button>
-    Get Started
-</button>
+</span>
+<a href="/login">
+    <button class="primary">
+        Get Started
+    </button>
+</a>
 {% endif %}
 {% endblock %}
