@@ -64,7 +64,7 @@ def signup():
         user = database.create_user(email, username, password)
 
         return render_template(page, info="Account created successfully.")
-    else:
+    else: 
         if user := session.get("user"):
             return render_template(page, info=ALREADY_LOGGED_IN)
         return render_template(page)
