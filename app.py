@@ -20,6 +20,13 @@ def index():
     user = session.get("user")
     return render_template("index.html", user=user)
 
+@app.route("/account")
+def account():
+    user = session.get("user")
+    if not user:
+        return redirect("/")
+    return render_template("account/account.html", user=user)
+
 @app.route("/search")
 def search():
     return render_template("search.html")
