@@ -8,10 +8,6 @@ form.account {
     border-radius: 20px;
 }
 
-.off-text {
-    color: #523200;
-}
-
 .hero {
     background-position: left;
 }
@@ -27,6 +23,11 @@ form.account {
 .mobile-menu {
     position: absolute;
     visibility: hidden;
+}
+
+.mobile-menu-opposite {
+    position: relative;
+    visibility: visible;
 }
 
 .navbar-left {

@@ -12,6 +12,10 @@ form {
     gap: 10px;
 }
 
+.off-text {
+    color: #523200;
+}
+
 .info,
 .error {
     display: flex;
@@ -35,6 +39,11 @@ form {
 .mobile-menu {
     position: relative;
     visibility: visible;
+}
+
+.mobile-menu-opposite {
+    position: absolute;
+    visibility: hidden;
 }
 
 .navbar-left {
