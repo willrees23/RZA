@@ -43,7 +43,6 @@ def INSERT(table: str, *columns: str):
     question_marks = "?," * len(columns)
     question_marks = question_marks[:-1]
     query = "INSERT INTO {} {} VALUES ({});".format(table, columns, question_marks)
-    print(query)
     return query
 
 
@@ -53,4 +52,15 @@ def INSERT_USER():
 
 def SELECT_USER_BY(by: str):
     query = "SELECT * FROM users WHERE {} = ?;".format(by)
+    return query
+
+
+def INSERT_BOOKING():
+    return INSERT(
+        "zoo_bookings", "secret", "userId", "dateTime", "adults", "children", "used"
+    )
+
+
+def SELECT_BOOKINGS_BY(by: str):
+    query = "SELECT * FROM zoo_bookings WHERE {} = ? ORDER BY dateTime DESC".format(by)
     return query

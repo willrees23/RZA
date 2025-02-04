@@ -5,15 +5,26 @@ RZA | New Booking
 {% block bg_img %}elephants_walking_on_grass.jpg{%endblock%}
 {% block bg_blur %}3px{%endblock%}
 {% block hero_title %}
+<a href="/bookings">
+    <button class="icon primary" style="width: fit-content">
+        <i class="fa-solid fa-arrow-left-long"></i>
+        <text>Back to bookings</text>
+    </button>
+</a>
 <span class="title">
     Create a new booking
 </span>
-<a href="/bookings">
-    <button class="icon primary" style="width: fit-content">
-        <i class="fa-solid fa-calendar"></i>
-        <text>Bookings</text>
-    </button>
-</a>
 {%endblock%}
 {% block content %}
+<form action="/bookings/new" method="post">
+    <div class="dual-input">
+        <input required name="date" id="date" type="date">
+        <input required name="time" id="time" type="time">
+    </div>
+    <div class="dual-input">
+        <input required name="adults" placeholder="Adults attending (min 1)..." min="1" id="adults" type="number">
+        <input required name="children" placeholder="Children attending..." id="children" type="number">
+    </div>
+    <button class="icon primary" type="submit">Book!</button>
+</form>
 {% endblock %}
