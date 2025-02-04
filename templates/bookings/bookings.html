@@ -2,22 +2,16 @@
 {% block title %}
 RZA | Bookings
 {% endblock %}
-{% block bg_img %}running_wilderbeast.jpg{%endblock%}
+{% block bg_img %}elephants_walking_on_grass.jpg{%endblock%}
 {% block bg_blur %}3px{%endblock%}
 {% block hero_title %}
 <span class="title">
-    Welcome, {{ user.username }}
+    View Bookings
 </span>
-<a href="bookings">
+<a href="bookings/new">
     <button class="icon primary" style="width: fit-content">
-        <i class="fa-solid fa-calendar"></i>
-        <text>Bookings</text>
-    </button>
-</a>
-<a href="logout">
-    <button class="icon" style="width: fit-content">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <text>Logout</text>
+        <i class="fa-solid fa-square-plus"></i>
+        <text>New booking</text>
     </button>
 </a>
 {%endblock%}

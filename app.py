@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, request, session, redirect, url_for
+from flask import render_template as flask_render_template
 from flask_session import Session
 from data import database
 from bcrypt import checkpw
@@ -14,24 +15,34 @@ ALREADY_LOGGED_IN = "Note: you are already logged in."
 # setup the database
 database.setup()
 
+
+def render_template(path: str, **kwargs):
+    user = session.get("user")
+    return flask_render_template(path, user=user, **kwargs)
+
+
 @app.route("/")
 def index():
     # get the user and pass it into home page, we will change content if user exists
-    return render_template("index.html", user=session.get("user"))
+    return render_template("index.html")
+
 
 @app.route("/bookings/new")
 def bookingnew():
     # this is the route in which users will create new bookings
-    return "New booking will be made here"
+    return render_template("bookings/new.html")
+
 
 @app.route("/bookings")
 def bookings():
     # this is the route in which users will view their existing bookings
-    return "Bookings will be seen here"
+    return render_template("bookings/bookings.html")
+
 
 @app.route("/visit-us")
 def visitus():
-    return render_template("visit-us.html", user=session.get("user"))
+    return render_template("visit-us.html")
+
 
 @app.route("/account")
 def account():
@@ -39,11 +50,13 @@ def account():
     if not user:
         # if not logged in, they can't access account page
         return redirect("/")
-    return render_template("account/account.html", user=user)
+    return render_template("account/account.html")
+
 
 @app.route("/search")
 def search():
-    return render_template("search.html", user=session.get("user"))
+    return render_template("search.html")
+
 
 @app.route("/logout")
 def logout():
@@ -89,9 +102,9 @@ def signup():
         user = database.create_user(email, username, password)
 
         return render_template(page, info="Account created successfully.")
-    else: 
+    else:
         if user := session.get("user"):
-            return render_template(page, info=ALREADY_LOGGED_IN, user=user)
+            return render_template(page, info=ALREADY_LOGGED_IN)
         return render_template(page)
 
 
@@ -110,7 +123,9 @@ def login():
         if not user:
             user = database.get_user_by_username(emailusername)
             if not user:
-                return render_template(page, error="Incorrect email/username or password.")
+                return render_template(
+                    page, error="Incorrect email/username or password."
+                )
         if not checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
             return render_template(page, error="Incorrect email/username or password.")
 
