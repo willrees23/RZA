@@ -14,26 +14,41 @@ ALREADY_LOGGED_IN = "Note: you are already logged in."
 # setup the database
 database.setup()
 
-
 @app.route("/")
 def index():
-    user = session.get("user")
-    return render_template("index.html", user=user)
+    # get the user and pass it into home page, we will change content if user exists
+    return render_template("index.html", user=session.get("user"))
+
+@app.route("/bookings/new")
+def bookingnew():
+    # this is the route in which users will create new bookings
+    return "New booking will be made here"
+
+@app.route("/bookings")
+def bookings():
+    # this is the route in which users will view their existing bookings
+    return "Bookings will be seen here"
+
+@app.route("/visit-us")
+def visitus():
+    return render_template("visit-us.html", user=session.get("user"))
 
 @app.route("/account")
 def account():
     user = session.get("user")
     if not user:
+        # if not logged in, they can't access account page
         return redirect("/")
     return render_template("account/account.html", user=user)
 
 @app.route("/search")
 def search():
-    return render_template("search.html")
+    return render_template("search.html", user=session.get("user"))
 
 @app.route("/logout")
 def logout():
     if session.get("user"):
+        # if they have user data, get rid of it and go to home page
         session.clear()
     return redirect("/")
 
@@ -76,7 +91,7 @@ def signup():
         return render_template(page, info="Account created successfully.")
     else: 
         if user := session.get("user"):
-            return render_template(page, info=ALREADY_LOGGED_IN)
+            return render_template(page, info=ALREADY_LOGGED_IN, user=user)
         return render_template(page)
 
 

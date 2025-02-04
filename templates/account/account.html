@@ -2,17 +2,23 @@
 {% block title %}
 Riget Zoo Adventures | Account
 {% endblock %}
-{% block bg_img %}flamingo_zoo.jpg{%endblock%}
+{% block bg_img %}running_wilderbeast.jpg{%endblock%}
 {% block bg_blur %}3px{%endblock%}
 {% block hero_title %}
 <span class="title">
   Welcome, {{ user.username }}
 </span>
+<a href="bookings">
+  <button class="icon primary" style="width: fit-content">
+    <i class="fa-solid fa-calendar"></i>
+    <text>Bookings</text>
+  </button>
+</a>
 <a href="logout">
-    <button class="icon primary" style="width: fit-content">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <text>Logout</text>
-    </button>
+  <button class="icon" style="width: fit-content">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <text>Logout</text>
+  </button>
 </a>
 {%endblock%}
 {% block content %}
