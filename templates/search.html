@@ -1,0 +1,18 @@
+{% extends 'common.html' %}
+{% block title %}
+Riget Zoo Adventures | Search
+{% endblock %}
+{% block bg_img %}person_looking_at_zoo.jpg{%endblock%}
+{% block bg_blur %}5px{%endblock%}
+{% block hero_title %}
+<span class="title">
+    Let's find what you're looking for!
+</span>
+<form action="/search" method="get" class="flex-col">
+    <input id="query" name="query" placeholder="What are you looking for...?">
+    <button class="primary icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <text>Search!</text>
+    </button>
+</form>
+{% endblock %}

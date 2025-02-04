@@ -1,21 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %} {% endblock %}</title>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/065b08aa18.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/static/styles/global.css">
+  <link rel="stylesheet" media="screen and (min-width: 900px)" href="/static/styles/wide.css">
+  <link rel="stylesheet" media="screen and (min-width: 1500px)" href="/static/styles/wider.css">
+  <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body>
+  <div class="hero" style="background-image: url('/static/images/{% block bg_img %}{%endblock%}'); filter: blur({% block bg_blur %}{%endblock%});">
+  </div>
+  <nav class="navbar">
+    <div class="navbar-title"><a href="/">RZA</a></div>
+    <div class="navbar-content">
+      <div class="navbar-left">
+        <a href="/visit-us">
+          Visit Us
+        </a>
+        <a href="/education">
+          Education
+        </a>
+        <a href="/about-us">
+          About Us
+        </a>
+        <a href="/support">
+          Support
+        </a>
+      </div>
+      <button class="icon mobile-menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="navbar-right">
+        <a href="/search" class="mobile-menu-opposite">
+          <button class="icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+          </button>
+        </a>
+        {% if user %}
+        <a href="/account">
+          <button class="primary icon">
+            <i class="fa-solid fa-user"></i>
+            <text>Account</text>
+          </button>
+        </a>
+        {% else %}
+        <a href="/login">
+          <button class="primary">
+            Get Started
+          </button>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <div class="hero_title">
     {% if error %}
-    <div class="error">
-      <p>{{ error }}</p>
-    </div>
-    {% endif %}
-    {% if info %}
-    <div class="info">
-      <p>{{ info }}</p>
-    </div>
-    {% endif %}
-    {% block content %} {% endblock %}
-  </body>
+  <div class="error">
+    <span>{{ error }}</span>
+  </div>
+  {% endif %}
+  {% if info %}
+  <div class="info">
+    <span>{{ info }}</span>
+  </div>
+  {% endif %}
+    {% block hero_title %} {% endblock %}
+  </div>
+  {% block content %} {% endblock %}
+</body>
+
 </html>

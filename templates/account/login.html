@@ -1,8 +1,29 @@
-{% extends 'common.html' %} {% block title %} Hello {% endblock %} {% block
-content %}
-<form method="post" action="/login">
+{% extends 'common.html' %}
+{% block title %}
+Riget Zoo Adventures | Login
+{% endblock %}
+{% block bg_img %}zebra_in_wild.jpg{%endblock%}
+{% block bg_blur %}3px{%endblock%}
+{% block hero_title %}
+<span class="title">
+  Login, and start your adventure.
+</span>
+
+<form method="post" action="/login" class="account">
   <input name="emailusername" id="emailusername" placeholder="Email/Username..." required />
   <input type="password" name="password" id="password" placeholder="Password..." required />
-  <input type="submit" value="Login" />
+  <a class="off-text" href="/forgot-password" style="text-decoration: underline;">
+    Forgotten password?
+  </a>
+  <button class="primary icon" type="submit">
+    <i class="fa-solid fa-right-to-bracket"></i>
+    <text>Login</text>
+  </button>
+  <a class="off-text" href="/signup" style="text-decoration: underline;">
+    Don't have an account? Signup here
+  </a>
 </form>
+{%endblock%}
+{% block content %}
+
 {% endblock %}

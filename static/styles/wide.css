@@ -1,0 +1,36 @@
+form {
+    width: 50%;
+}
+
+form.account {
+    background-color: #f9f0ed7e;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.hero {
+    background-position: left;
+}
+
+.hero_title {
+    align-items: unset;
+}
+
+.hero_title span.title {
+    text-align: unset;
+}
+
+.mobile-menu {
+    position: absolute;
+    visibility: hidden;
+}
+
+.mobile-menu-opposite {
+    position: relative;
+    visibility: visible;
+}
+
+.navbar-left {
+    position: relative;
+    visibility: visible;
+}
