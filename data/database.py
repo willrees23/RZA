@@ -1,7 +1,8 @@
 import bcrypt
 import sqlite3 as sql
 import data.queries as queries
-from models import User
+from models import User, ZooBooking
+from uuid import uuid4, UUID
 
 # specify the name of the database
 databaseName = "data/data.db"
@@ -37,6 +38,7 @@ def get_user_by_email(email: str):
         return None
     return User(*user)
 
+
 def get_user_by_username(username: str):
     cursor = database.cursor()
     cursor.execute(queries.SELECT_USER_BY("username"), [username])
@@ -45,3 +47,26 @@ def get_user_by_username(username: str):
     if user is None:
         return None
     return User(*user)
+
+
+def create_booking(userId: int, dateTime: int, adults: int, children: int, used: bool):
+    secret = uuid4().hex
+    cursor = database.cursor()
+    database.execute(
+        queries.INSERT_BOOKING(), (secret, userId, dateTime, adults, children, used)
+    )
+    database.commit()
+    id = cursor.lastrowid
+    cursor.close()
+    return ZooBooking(id, secret, userId, dateTime, adults, children, used)
+
+
+def get_bookings_from_user(userId: int):
+    cursor = database.cursor()
+    cursor.execute(queries.SELECT_BOOKINGS_BY("userId"), [userId])
+    bookings = cursor.fetchall()
+    models = []
+    cursor.close()
+    for booking in bookings:
+        models.append(ZooBooking(*booking))
+    return models

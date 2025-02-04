@@ -12,7 +12,8 @@
 </head>
 
 <body>
-  <div class="hero" style="background-image: url('/static/images/{% block bg_img %}{%endblock%}'); filter: blur({% block bg_blur %}{%endblock%});">
+  <div class="hero"
+    style="background-image: url('/static/images/{% block bg_img %}{%endblock%}'); filter: blur({% block bg_blur %}{%endblock%});">
   </div>
   <nav class="navbar">
     <div class="navbar-title"><a href="/">RZA</a></div>
@@ -60,18 +61,20 @@
   </nav>
   <div class="hero_title">
     {% if error %}
-  <div class="error">
-    <span>{{ error }}</span>
-  </div>
-  {% endif %}
-  {% if info %}
-  <div class="info">
-    <span>{{ info }}</span>
-  </div>
-  {% endif %}
+    <div class="error">
+      <span>{{ error }}</span>
+    </div>
+    {% endif %}
+    {% if info %}
+    <div class="info">
+      <span>{{ info }}</span>
+    </div>
+    {% endif %}
     {% block hero_title %} {% endblock %}
   </div>
-  {% block content %} {% endblock %}
+  <div class="content">
+    {% block content %} {% endblock %}
+  </div>
 </body>
 
 </html>

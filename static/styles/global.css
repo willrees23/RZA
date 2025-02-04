@@ -6,10 +6,43 @@
     font-size: 20px;
 }
 
+.bookings {
+    margin-top: 25px;
+    display: flex;
+    gap: 20px;
+}
+
+.bookings .booking {
+    filter: drop-shadow(0 0 0.3rem rgba(0, 0, 0, 0.7));
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    align-items: center;
+    width: fit-content;
+}
+
+.bookings .booking .qr {
+    width: 35%;
+    margin-top: 10px;
+}
+
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.dual-input {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.dual-input * {
+    width: 50%;
 }
 
 .off-text {

@@ -16,4 +16,30 @@ RZA | Bookings
 </a>
 {%endblock%}
 {% block content %}
+<div class="bookings">
+    {% for booking in bookings %}
+    <div class="booking">
+        <span class="title">
+            {{ booking.dateTime|datetime("%d/%m/%y") }}
+        </span>
+        <span class="title">
+            {{ booking.dateTime|datetime("%H:%M") }}
+        </span>
+
+        <img class="qr" src="{{ qrcode(booking.secret) }}">
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <span class="title">
+                {{ booking.adults }} Adults
+            </span>
+            <span>|</span>
+            <span class="title">
+                {{ booking.children }} Children
+            </span>
+        </div>
+        {% if booking.used %}
+        <button class="primary icon">Remove</button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

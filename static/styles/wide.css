@@ -1,8 +1,5 @@
 form {
     width: 50%;
-}
-
-form.account {
     background-color: #f9f0ed7e;
     padding: 20px;
     border-radius: 20px;
@@ -33,4 +30,8 @@ form.account {
 .navbar-left {
     position: relative;
     visibility: visible;
+}
+
+.content {
+    margin-left: 15px;
 }

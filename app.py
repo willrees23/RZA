@@ -1,14 +1,17 @@
 from flask import Flask, request, session, redirect, url_for
 from flask import render_template as flask_render_template
 from flask_session import Session
+from flask_qrcode import QRcode
 from data import database
 from bcrypt import checkpw
 import re
+from datetime import datetime
 
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+QRcode(app)
 
 ALREADY_LOGGED_IN = "Note: you are already logged in."
 
@@ -21,22 +24,52 @@ def render_template(path: str, **kwargs):
     return flask_render_template(path, user=user, **kwargs)
 
 
+@app.template_filter("datetime")
+def _format_datetime(timestamp, fmt=None):
+    if fmt is None:
+        fmt = "%Y-%m-%d %H:%M:%S"
+    return datetime.fromtimestamp(timestamp / 1000).strftime(fmt)
+
+
 @app.route("/")
 def index():
     # get the user and pass it into home page, we will change content if user exists
     return render_template("index.html")
 
 
-@app.route("/bookings/new")
+@app.route("/bookings/new", methods=["POST", "GET"])
 def bookingnew():
+    if not session.get("user"):
+        return redirect("/login")
     # this is the route in which users will create new bookings
+    if request.method == "POST":
+        date = request.form["date"]
+        time = request.form["time"]
+        adults = request.form["adults"]
+        children = request.form["children"]
+        try:
+            dateTimeObject = datetime.strptime(date + " " + time, "%Y-%m-%d %H:%M")
+        except:
+            return render_template("bookings/new.html", error="Something went wrong...")
+        database.create_booking(
+            session.get("user").id,
+            dateTimeObject.timestamp() * 1000,
+            adults,
+            children,
+            False,
+        )
+        return render_template("bookings/new.html", info="Booking success.")
     return render_template("bookings/new.html")
 
 
 @app.route("/bookings")
 def bookings():
+    if not session.get("user"):
+        return redirect("/login")
+
+    bookings = database.get_bookings_from_user(1)
     # this is the route in which users will view their existing bookings
-    return render_template("bookings/bookings.html")
+    return render_template("bookings/bookings.html", bookings=bookings)
 
 
 @app.route("/visit-us")
